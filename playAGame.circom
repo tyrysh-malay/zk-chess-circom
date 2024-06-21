@@ -331,37 +331,37 @@ template MakeAMove() {
 
     //checking stalemate
 
-    component whtStlmt = AreWhtStlmtd();
-    component blckStlmt = AreBlckStlmtd();
+    // component whtStlmt = AreWhtStlmtd();
+    // component blckStlmt = AreBlckStlmtd();
 
-    for (i=0; i<8; i++) {
-        for (j=0; j<8; j++) {
-            whtStlmt.board[i][j] <== newBoard[i][j];
-            blckStlmt.board[i][j] <== newBoard[i][j];
-        }
-    }
+    // for (i=0; i<8; i++) {
+    //     for (j=0; j<8; j++) {
+    //         whtStlmt.board[i][j] <== newBoard[i][j];
+    //         blckStlmt.board[i][j] <== newBoard[i][j];
+    //     }
+    // }
 
-    for (i=0; i<16; i++) {
-        whtStlmt.pieceType[i] <== newPieceType[i];
-        blckStlmt.pieceType[i] <== newPieceType[i];
-    }
+    // for (i=0; i<16; i++) {
+    //     whtStlmt.pieceType[i] <== newPieceType[i];
+    //     blckStlmt.pieceType[i] <== newPieceType[i];
+    // }
 
-    for (i=0; i<32; i++) {
-        whtStlmt.pieceHor[i] <== newPieceHor[i];
-        whtStlmt.pieceVer[i] <== newPieceVer[i];
-        blckStlmt.pieceHor[i] <== newPieceHor[i];
-        blckStlmt.pieceVer[i] <== newPieceVer[i];
-    }
+    // for (i=0; i<32; i++) {
+    //     whtStlmt.pieceHor[i] <== newPieceHor[i];
+    //     whtStlmt.pieceVer[i] <== newPieceVer[i];
+    //     blckStlmt.pieceHor[i] <== newPieceHor[i];
+    //     blckStlmt.pieceVer[i] <== newPieceVer[i];
+    // }
 
-    whtStlmt.kingHor <== newKingHor[0];
-    whtStlmt.kingVer <== newKingVer[0];
-    blckStlmt.kingHor <== newKingHor[1];
-    blckStlmt.kingVer <== newKingVer[1];
+    // whtStlmt.kingHor <== newKingHor[0];
+    // whtStlmt.kingVer <== newKingVer[0];
+    // blckStlmt.kingHor <== newKingHor[1];
+    // blckStlmt.kingVer <== newKingVer[1];
 
-    intermedFlags[263] <== whtStlmt.flag + newSTM*(blckStlmt.flag - whtStlmt.flag);
-    intermedFlags[264] <== OR()(geqt.out, intermedFlags[263]);
+    // intermedFlags[263] <== whtStlmt.flag + newSTM*(blckStlmt.flag - whtStlmt.flag);
+    // intermedFlags[264] <== OR()(geqt.out, intermedFlags[263]);
 
-    result <== 3*intermedFlags[264];
+    // result <== 3*intermedFlags[264];
 
 }
 
