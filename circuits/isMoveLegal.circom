@@ -59,7 +59,7 @@ template IsWhtMvLgl() {
     intermedFlags[21] <== IsBshpMVLgl()(board,origHor,origVer,destHor,destVer);
     intermedFlags[22] <== IsKnghtMvLgl()(origHor,origVer,destHor,destVer);
     intermedFlags[23] <== IsWhtPawnMvLgl()(board,origHor,origVer,destHor,destVer,destPiece,captFlag,prmtPiece,enPassHor,enPassVer);
-    intermedFlags[24] <== IsWhtCstlLgl()(board,destHor,kingCstlFlag,qnCstlFlag);
+    intermedFlags[24] <== IsWhtCstlLgl()(board,destVer,kingCstlFlag,qnCstlFlag);
 
     intermedFlags[25] <== intermedFlags[8]*intermedFlags[18];
     intermedFlags[26] <== intermedFlags[9]*intermedFlags[19];
@@ -75,6 +75,7 @@ template IsWhtMvLgl() {
     intermedFlags[35] <== intermedFlags[33]*intermedFlags[34];
 
     flag <== intermedFlags[32]*intermedFlags[35];
+
 }
 
 template IsBlckMvLgl() {
@@ -134,7 +135,7 @@ template IsBlckMvLgl() {
     intermedFlags[21] <== IsBshpMVLgl()(board,origHor,origVer,destHor,destVer);
     intermedFlags[22] <== IsKnghtMvLgl()(origHor,origVer,destHor,destVer);
     intermedFlags[23] <== IsBlckPawnMvLgl()(board,origHor,origVer,destHor,destVer,destPiece,captFlag,prmtPiece,enPassHor,enPassVer);
-    intermedFlags[24] <== IsBlckCstlLgl()(board,destHor,kingCstlFlag,qnCstlFlag);
+    intermedFlags[24] <== IsBlckCstlLgl()(board,destVer,kingCstlFlag,qnCstlFlag);
 
     intermedFlags[25] <== intermedFlags[8]*intermedFlags[18];
     intermedFlags[26] <== intermedFlags[9]*intermedFlags[19];
@@ -391,10 +392,10 @@ template IsWhtCstlLgl() {
     //checking knight threats
 
     for (i=0; i<4; i++) {
-        intermediate[i] <== intermedFlags[9*(i+7)+7] + intermedFlags[9*(i+11)+7] + intermedFlags[9*(i+16)+7] + intermedFlags[9*(i+18)+7];
+        intermediate[i] <== intermedFlags[9*i+7] + intermedFlags[9*(i+4)+7] + intermedFlags[9*(i+9)+7] + intermedFlags[9*(i+11)+7];
     }
 
-    intermediate[4] <== intermedFlags[9*11+7] + intermedFlags[9*20+7] + intermedFlags[9*22+7];
+    intermediate[4] <== intermedFlags[9*4+7] + intermedFlags[9*13+7] + intermedFlags[9*15+7];
 
     for (i=0; i<5; i++) {
         thrtFlags[15+i] <== IsNonZero()(intermediate[i]);
@@ -544,10 +545,10 @@ template IsBlckCstlLgl() {
     //checking knight threats
 
     for (i=0; i<4; i++) {
-        intermediate[i] <== intermedFlags[9*(i+7)+7] + intermedFlags[9*(i+11)+7] + intermedFlags[9*(i+16)+7] + intermedFlags[9*(i+18)+7];
+        intermediate[i] <== intermedFlags[9*i+7] + intermedFlags[9*(i+4)+7] + intermedFlags[9*(i+9)+7] + intermedFlags[9*(i+11)+7];
     }
 
-    intermediate[4] <== intermedFlags[9*11+7] + intermedFlags[9*20+7] + intermedFlags[9*22+7];
+    intermediate[4] <== intermedFlags[9*4+7] + intermedFlags[9*13+7] + intermedFlags[9*15+7];
 
     for (i=0; i<5; i++) {
         thrtFlags[15+i] <== IsNonZero()(intermediate[i]);

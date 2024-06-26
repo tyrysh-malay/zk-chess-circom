@@ -1,7 +1,7 @@
 pragma circom 2.1.6;
 
-include "node_modules/circomlib/circuits/comparators.circom";
-include "node_modules/circomlib/circuits/gates.circom";
+include "../node_modules/circomlib/circuits/comparators.circom";
+include "../node_modules/circomlib/circuits/gates.circom";
 
 template IsNonEqual(){
     signal input in[2];
@@ -80,7 +80,7 @@ template SqrToPiece() {
     signal output piece;
 
     signal isOnBoard;
-    signal outs[192];
+    signal intermedFlags[64];
     signal pieces[64];
 
     var i;
@@ -88,17 +88,15 @@ template SqrToPiece() {
 
     for (i=0; i<8; i++) {
         for (j=0; j<8; j++) {
-            outs[16*i+2*j] <== IsEqual()([sqrHor,i]);
-            outs[16*i+2*j+1] <== IsEqual()([sqrVer,j]);
-
-            outs[16*i+2*j]*outs[16*i+2*j+1] ==> outs[128+8*i+j];
-            outs[128+8*i+j]*board[i][j] ==> pieces[8*i+j];
+            intermedFlags[8*i+j] <== IsEqual()([8*sqrHor+sqrVer,8*i+j]);
+            pieces[8*i+j] <== intermedFlags[8*i+j] * board[i][j];
         }
     }
 
-    isOnBoard <== outs[128] + outs[129] + outs[130] + outs[131] + outs[132] + outs[133] + outs[134] + outs[135] + outs[136] + outs[137] + outs[138] + outs[139] + outs[140] + outs[141] + outs[142] + outs[143] + outs[144] + outs[145] + outs[146] + outs[147] + outs[148] + outs[149] + outs[150] + outs[151] + outs[152] + outs[153] + outs[154] + outs[155] + outs[156] + outs[157] + outs[158] + outs[159] + outs[160] + outs[161] + outs[162] + outs[163] + outs[164] + outs[165] + outs[166] + outs[167] + outs[168] + outs[169] + outs[170] + outs[171] + outs[172] + outs[173] + outs[174] + outs[175] + outs[176] + outs[177] + outs[178] + outs[179] + outs[180] + outs[181] + outs[182] + outs[183] + outs[184] + outs[185] + outs[186] + outs[187] + outs[188] + outs[189] + outs[190] + outs[191];
+    isOnBoard <== intermedFlags[0] + intermedFlags[1] + intermedFlags[2] + intermedFlags[3] + intermedFlags[4] + intermedFlags[5] + intermedFlags[6] + intermedFlags[7] + intermedFlags[8] + intermedFlags[9] + intermedFlags[10] + intermedFlags[11] + intermedFlags[12] + intermedFlags[13] + intermedFlags[14] + intermedFlags[15] + intermedFlags[16] + intermedFlags[17] + intermedFlags[18] + intermedFlags[19] + intermedFlags[20] + intermedFlags[21] + intermedFlags[22] + intermedFlags[23] + intermedFlags[24] + intermedFlags[25] + intermedFlags[26] + intermedFlags[27] + intermedFlags[28] + intermedFlags[29] + intermedFlags[30] + intermedFlags[31] + intermedFlags[32] + intermedFlags[33] + intermedFlags[34] + intermedFlags[35] + intermedFlags[36] + intermedFlags[37] + intermedFlags[38] + intermedFlags[39] + intermedFlags[40] + intermedFlags[41] + intermedFlags[42] + intermedFlags[43] + intermedFlags[44] + intermedFlags[45] + intermedFlags[46] + intermedFlags[47] + intermedFlags[48] + intermedFlags[49] + intermedFlags[50] + intermedFlags[51] + intermedFlags[52] + intermedFlags[53] + intermedFlags[54] + intermedFlags[55] + intermedFlags[56] + intermedFlags[57] + intermedFlags[58] + intermedFlags[59] + intermedFlags[60] + intermedFlags[61] + intermedFlags[62] + intermedFlags[63];
 
-    piece <== isOnBoard * (pieces[0] + pieces[1] + pieces[2] + pieces[3] + pieces[4] + pieces[5] + pieces[6] + pieces[7] + pieces[8] + pieces[9] + pieces[10] + pieces[11] + pieces[12] + pieces[13] + pieces[14] + pieces[15] + pieces[16] + pieces[17] + pieces[18] + pieces[19] + pieces[20] + pieces[21] + pieces[22] + pieces[23] + pieces[24] + pieces[25] + pieces[26] + pieces[27] + pieces[28] + pieces[29] + pieces[30] + pieces[31] + pieces[32] + pieces[33] + pieces[34] + pieces[35] + pieces[36] + pieces[37] + pieces[38] + pieces[39] + pieces[40] + pieces[41] + pieces[42] + pieces[43] + pieces[44] + pieces[45] + pieces[46] + pieces[47] + pieces[48] + pieces[49] + pieces[50] + pieces[51] + pieces[52] + pieces[53] + pieces[54] + pieces[55] + pieces[56] + pieces[57] + pieces[58] + pieces[59] + pieces[60] + pieces[61] + pieces[62] + pieces[63] - 50) + 50; //the same as piece <== isOnBoard*(pieces[0]+...) + (1-isOnBoard)*50
+
+    piece <== isOnBoard * (pieces[0] + pieces[1] + pieces[2] + pieces[3] + pieces[4] + pieces[5] + pieces[6] + pieces[7] + pieces[8] + pieces[9] + pieces[10] + pieces[11] + pieces[12] + pieces[13] + pieces[14] + pieces[15] + pieces[16] + pieces[17] + pieces[18] + pieces[19] + pieces[20] + pieces[21] + pieces[22] + pieces[23] + pieces[24] + pieces[25] + pieces[26] + pieces[27] + pieces[28] + pieces[29] + pieces[30] + pieces[31] + pieces[32] + pieces[33] + pieces[34] + pieces[35] + pieces[36] + pieces[37] + pieces[38] + pieces[39] + pieces[40] + pieces[41] + pieces[42] + pieces[43] + pieces[44] + pieces[45] + pieces[46] + pieces[47] + pieces[48] + pieces[49] + pieces[50] + pieces[51] + pieces[52] + pieces[53] + pieces[54] + pieces[55] + pieces[56] + pieces[57] + pieces[58] + pieces[59] + pieces[60] + pieces[61] + pieces[62] + pieces[63] - 50) + 50; //the same as piece <== isOnBoard*(intermedFlags[0]+...) + (1-isOnBoard)*50
 
 }
 
