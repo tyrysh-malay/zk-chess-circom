@@ -39,6 +39,7 @@ mv ../playAGame_input.json ./playAGame_js/
 7. Now, you can generate a witness.
 
 ```
+cd playAGame_js
 node generate_witness.js playAGame.wasm playAGame_input.json witness.wtns
 ```
 
